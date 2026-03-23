@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SPAROO UPI Payment</title>
+</head>
+<body>
+  <noscript>JavaScript is required.</noscript>
+  <script>
+    // Vercel static hosting expects an entrypoint like `index.html`.
+    // This file simply forwards users to `pay.html` while keeping query params.
+    const qs = window.location.search || "";
+    window.location.replace("pay.html" + qs);
+  </script>
+</body>
+</html>
