@@ -164,24 +164,30 @@
     const pa = getParam("pa");
     const pn = getParam("pn");
     const am = getParam("am");
+    const tr = getParam("tr");
+    const tn = getParam("tn");
+    const mc = getParam("mc") || "0000";
 
     document.getElementById("merchantName").textContent = pn || "-";
     document.getElementById("amountText").textContent = formatAmountForUi(am);
 
     function buildUpiUrl() {
-      const timestamp = Date.now();
       const safePa = encodeURIComponent(pa);
       const safePn = encodeURIComponent(pn);
       const safeAm = encodeURIComponent(String(am).trim());
+      const timestamp = Date.now();
+      const trToUse = (tr && String(tr).trim()) ? String(tr).trim() : ("SPAROO_" + timestamp);
+      const safeTr = encodeURIComponent(trToUse);
+      const safeTn = encodeURIComponent((tn && String(tn).trim()) ? String(tn).trim() : "SPAROO Payment");
 
       // Required format:
-      // upi://pay?pa=&pn=&mc=0000&tr=SPAROO_{timestamp}&tn=SPAROO+Payment&am=&cu=INR
+      // upi://pay?pa=&pn=&mc=&tr=&tn=&am=&cu=INR
       return "upi://pay?"
         + "pa=" + safePa
         + "&pn=" + safePn
-        + "&mc=0000"
-        + "&tr=SPAROO_" + timestamp
-        + "&tn=SPAROO+Payment"
+        + "&mc=" + encodeURIComponent(mc)
+        + "&tr=" + safeTr
+        + "&tn=" + safeTn
         + "&am=" + safeAm
         + "&cu=INR";
     }
